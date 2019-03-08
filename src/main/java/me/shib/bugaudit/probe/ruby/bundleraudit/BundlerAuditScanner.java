@@ -15,7 +15,7 @@ public class BundlerAuditScanner extends ProbeScanner {
 
     private static final Lang lang = Lang.Ruby;
     private static final String tool = "BundlerAudit";
-    private static final File bundlerAuditOutput = new File("bundleraudit-out.json");
+    private static final File bundlerAuditOutput = new File("bundleraudit-out.txt");
 
     private static int getPriorityNumberForName(String priorityName) {
         switch (priorityName) {
