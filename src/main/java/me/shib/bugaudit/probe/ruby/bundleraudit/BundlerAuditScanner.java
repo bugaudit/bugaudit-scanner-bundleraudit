@@ -87,16 +87,15 @@ public class BundlerAuditScanner extends ProbeScanner {
                 .append("**) was found to be used in the repository ");
         description.append("**[").append(bugAuditResult.getRepo()).append("](")
                 .append(bugAuditResult.getRepo().getUrl()).append(")**.\n");
-        description.append("*.\n\n");
-        description.append("[").append(cve).append("](").append(getUrlForCVE(cve)).append(")");
+        description.append("\n**[").append(cve).append("](").append(getUrlForCVE(cve)).append("):**");
         if (descriptionTitle != null && !descriptionTitle.isEmpty()) {
-            description.append(" * **Description:** ").append(descriptionTitle).append("\n");
+            description.append("\n * **Description:** ").append(descriptionTitle);
         }
         if (url != null && !url.isEmpty()) {
-            description.append(" * **Reference:** [").append(url).append("]\n");
+            description.append("\n * **Reference:** [").append(url).append("]");
         }
         if (solution != null && !solution.isEmpty()) {
-            description.append(" * **Solution:** ").append(solution).append("\n");
+            description.append("\n * **Solution:** ").append(solution);
         }
         return description.toString();
     }
