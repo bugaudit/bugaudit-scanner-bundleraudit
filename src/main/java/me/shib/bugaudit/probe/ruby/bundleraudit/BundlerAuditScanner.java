@@ -11,11 +11,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BundlerAuditScanner extends ProbeScanner {
+public final class BundlerAuditScanner extends ProbeScanner {
 
     private static final Lang lang = Lang.Ruby;
     private static final String tool = "BundlerAudit";
     private static final File bundlerAuditOutput = new File("bundleraudit-out.txt");
+
+    public BundlerAuditScanner() {
+        this.bugAuditResult.addKey("Vulnerable-Dependency");
+    }
 
     private static int getPriorityNumberForName(String priorityName) {
         switch (priorityName) {
