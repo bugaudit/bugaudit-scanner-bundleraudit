@@ -4,10 +4,7 @@ import me.shib.bugaudit.commons.*;
 import me.shib.bugaudit.probe.ProbeConfig;
 import me.shib.bugaudit.probe.ProbeScanner;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -127,7 +124,7 @@ public final class BundlerAuditScanner extends ProbeScanner {
         }
     }
 
-    private void bundlerAuditExecutor(String command) throws BugAuditException {
+    private String bundlerAuditExecutor(String command) throws BugAuditException {
         CommandExecutor commandExecutor = new CommandExecutor();
         commandExecutor.enableConsoleOutput(true);
         commandExecutor.runCommand(command);
@@ -135,6 +132,7 @@ public final class BundlerAuditScanner extends ProbeScanner {
         if (response.contains("command not found") || response.contains("is currently not installed")) {
             throw new BugAuditException("Install npm before proceeding");
         }
+        return response;
     }
 
     private String readFromFile(File file) throws IOException {
@@ -148,9 +146,17 @@ public final class BundlerAuditScanner extends ProbeScanner {
         return contentBuilder.toString();
     }
 
-    private void runBundlerAudit() throws BugAuditException {
+    private void writeToFile(String content, File file) throws FileNotFoundException {
+        PrintWriter pw = new PrintWriter(file);
+        pw.append(content);
+        pw.close();
+    }
+
+    private void runBundlerAudit() throws BugAuditException, FileNotFoundException {
         System.out.println("Running RetireJS...");
-        bundlerAuditExecutor("bundle-audit > " + bundlerAuditOutput.getPath());
+        String bundlerAuditResponse = bundlerAuditExecutor("bundle-audit");
+        writeToFile(bundlerAuditResponse, bundlerAuditOutput);
+        System.out.println("Debugging: " + bundlerAuditOutput.getPath());
     }
 
     private void installBundlerAudit() throws BugAuditException {
