@@ -4,21 +4,21 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>me.shib.bugaudit</groupId>
-    <artifactId>bugaudit-probe-bundleraudit</artifactId>
+    <artifactId>bugaudit-scanner-bundleraudit</artifactId>
     <version>0.0.1</version>
-    <name>BugAudit Probe - Bundler Audit</name>
-    <description>A bug audit probe using bundler audit for Ruby</description>
-    <url>https://github.com/bugaudit/bugaudit-probe-bundleraudit</url>
+    <name>BugAudit Scanner - Bundler Audit</name>
+    <description>A bug audit scanner using bundler audit for Ruby</description>
+    <url>https://github.com/bugaudit/bugaudit-scanner-bundleraudit</url>
 
     <issueManagement>
-        <url>https://github.com/bugaudit/bugaudit-probe-bundleraudit/issues</url>
+        <url>https://github.com/bugaudit/bugaudit-scanner-bundleraudit/issues</url>
         <system>GitHub Issues</system>
     </issueManagement>
 
     <scm>
-        <url>https://github.com/bugaudit/bugaudit-probe-bundleraudit</url>
-        <connection>scm:git:https://github.com/bugaudit/bugaudit-probe-bundleraudit.git</connection>
-        <developerConnection>scm:git:git@github.com:bugaudit/bugaudit-probe-bundleraudit.git</developerConnection>
+        <url>https://github.com/bugaudit/bugaudit-scanner-bundleraudit</url>
+        <connection>scm:git:https://github.com/bugaudit/bugaudit-scanner-bundleraudit.git</connection>
+        <developerConnection>scm:git:git@github.com:bugaudit/bugaudit-scanner-bundleraudit.git</developerConnection>
     </scm>
 
     <developers>
@@ -142,7 +142,7 @@
     <dependencies>
         <dependency>
             <groupId>me.shib.bugaudit</groupId>
-            <artifactId>bugaudit-probe</artifactId>
+            <artifactId>bugaudit-scanner</artifactId>
             <version>0.0.1</version>
         </dependency>
     </dependencies>

@@ -1,21 +1,21 @@
-package me.shib.bugaudit.probe.ruby.bundleraudit;
+package me.shib.bugaudit.scanner.ruby.bundleraudit;
 
-import me.shib.bugaudit.commons.*;
-import me.shib.bugaudit.probe.ProbeConfig;
-import me.shib.bugaudit.probe.ProbeScanner;
+import me.shib.bugaudit.commons.BugAuditContent;
+import me.shib.bugaudit.commons.BugAuditException;
+import me.shib.bugaudit.scanner.*;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class BundlerAuditScanner extends ProbeScanner {
+public final class BundlerAuditScanner extends BugAuditScanner {
 
     private static final Lang lang = Lang.Ruby;
     private static final String tool = "BundlerAudit";
     private static final File bundlerAuditOutput = new File("bundleraudit-out.txt");
 
     public BundlerAuditScanner() {
-        this.bugAuditResult.addKey("Vulnerable-Dependency");
+        this.getBugAuditScanResult().addKey("Vulnerable-Dependency");
     }
 
     private static int getPriorityNumberForName(String priorityName) {
@@ -72,13 +72,12 @@ public final class BundlerAuditScanner extends ProbeScanner {
             gemName = split[1].replace("\n", " ").trim();
         }
         String title = "Vulnerable Gem (" + advisory + ") - " + gemName +
-                " in repo - " + bugAuditResult.getRepo();
-        Bug bug = bugAuditResult.newBug(title, priority);
+                " in repo - " + getBugAuditScanResult().getRepo();
+        Bug bug = getBugAuditScanResult().newBug(title, priority);
         bug.setDescription(new BugAuditContent(getDescription(gemName, gemVersion, descriptionTitle, url, solution, advisory)));
         bug.addKey(gemName);
         bug.addKey(advisory);
-        bugAuditResult.addBug(bug);
-
+        getBugAuditScanResult().addBug(bug);
     }
 
     private String getDescription(String gemName, String gemVersion, String descriptionTitle, String url, String solution, String cve) throws BugAuditException {
@@ -86,8 +85,8 @@ public final class BundlerAuditScanner extends ProbeScanner {
         description.append("A vulnerable gem (**").append(gemName)
                 .append("-").append(gemVersion)
                 .append("**) was found to be used in the repository ");
-        description.append("**[").append(bugAuditResult.getRepo()).append("](")
-                .append(bugAuditResult.getRepo().getUrl()).append(")**.\n");
+        description.append("**[").append(getBugAuditScanResult().getRepo()).append("](")
+                .append(getBugAuditScanResult().getRepo().getUrl()).append(")**.\n");
         description.append("\n**[").append(cve).append("](").append(getUrlForCVE(cve)).append("):**");
         if (descriptionTitle != null && !descriptionTitle.isEmpty()) {
             description.append("\n * **Description:** ").append(descriptionTitle);
@@ -173,7 +172,7 @@ public final class BundlerAuditScanner extends ProbeScanner {
     }
 
     @Override
-    protected ProbeConfig getDefaultProbeConfig() {
+    public BugAuditScannerConfig getDefaultScannerConfig() {
         return new BundlerAuditConfig();
     }
 
@@ -183,13 +182,13 @@ public final class BundlerAuditScanner extends ProbeScanner {
     }
 
     @Override
-    protected String getTool() {
+    public String getTool() {
         return tool;
     }
 
     @Override
-    protected void scan() throws Exception {
-        if (!parserOnly) {
+    public void scan() throws Exception {
+        if (!isParserOnly()) {
             bundlerAuditOutput.delete();
             installBundlerAudit();
             updateBundlerAuditDatabase();
