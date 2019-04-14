@@ -1,5 +1,5 @@
 # BugAudit Scanner - Bundler Audit
-[![Build Status](https://travis-ci.org/bugaudit/bugaudit-scanner-bundleraudit.svg)](https://travis-ci.org/bugaudit/bugaudit-scanner-bundleraudit)
-[![Percentage of issues still open](http://isitmaintained.com/badge/open/bugaudit/bugaudit-scanner-bundleraudit.svg)](http://isitmaintained.com/project/bugaudit/bugaudit-scanner-bundleraudit "Percentage of issues still open")
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/me.shib.bugaudit/bugaudit-scanner-bundleraudit/badge.svg)](https://maven-badges.herokuapp.com/maven-central/me.shib.bugaudit/bugaudit-scanner-bundleraudit)
+[![Build Status](https://gitlab.com/bugaudit/bugaudit-scanner-bundleraudit/badges/master/pipeline.svg)](https://gitlab.com/bugaudit/bugaudit-scanner-bundleraudit/pipelines)
 
 A bug audit scanner using bundler audit for Ruby
