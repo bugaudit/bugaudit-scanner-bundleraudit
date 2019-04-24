@@ -155,7 +155,6 @@ public final class BundlerAuditScanner extends BugAuditScanner {
         System.out.println("Running RetireJS...");
         String bundlerAuditResponse = bundlerAuditExecutor("bundle-audit");
         writeToFile(bundlerAuditResponse, bundlerAuditOutput);
-        System.out.println("Debugging: " + bundlerAuditOutput.getPath());
     }
 
     private void installBundlerAudit() throws BugAuditException {
