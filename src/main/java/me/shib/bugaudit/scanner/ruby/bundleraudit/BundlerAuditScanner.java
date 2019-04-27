@@ -32,7 +32,7 @@ public final class BundlerAuditScanner extends BugAuditScanner {
             case "Critical":
                 return 1;
             default:
-                return 3;
+                return 2;
         }
     }
 
