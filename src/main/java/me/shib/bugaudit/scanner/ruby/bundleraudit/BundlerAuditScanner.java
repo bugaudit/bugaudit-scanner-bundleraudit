@@ -10,9 +10,10 @@ import java.util.List;
 
 public final class BundlerAuditScanner extends BugAuditScanner {
 
-    private static final Lang lang = Lang.Ruby;
-    private static final String tool = "BundlerAudit";
-    private static final File bundlerAuditOutput = new File("bundleraudit-out.txt");
+    private static transient final String cveBaseURL = "https://nvd.nist.gov/vuln/detail/";
+    private static transient final Lang lang = Lang.Ruby;
+    private static transient final String tool = "BundlerAudit";
+    private static transient final File bundlerAuditOutput = new File("bundleraudit-out.txt");
 
     public BundlerAuditScanner() {
         this.getBugAuditScanResult().addKey("Vulnerable-Dependency");
@@ -35,7 +36,7 @@ public final class BundlerAuditScanner extends BugAuditScanner {
         }
     }
 
-    private void addBugForContent(String gemVulnerabilityContent) throws BugAuditException {
+    private void addBugForContent(String gemVulnerabilityContent) {
         String advisory = "";
         String url = "";
         String descriptionTitle = "";
@@ -80,14 +81,18 @@ public final class BundlerAuditScanner extends BugAuditScanner {
         getBugAuditScanResult().addBug(bug);
     }
 
-    private String getDescription(String gemName, String gemVersion, String descriptionTitle, String url, String solution, String cve) throws BugAuditException {
+    private String getDescription(String gemName, String gemVersion, String descriptionTitle, String url, String solution, String advisory) {
         StringBuilder description = new StringBuilder();
         description.append("A vulnerable gem (**").append(gemName)
                 .append("-").append(gemVersion)
                 .append("**) was found to be used in the repository ");
         description.append("**[").append(getBugAuditScanResult().getRepo()).append("](")
                 .append(getBugAuditScanResult().getRepo().getUrl()).append(")**.\n");
-        description.append("\n**[").append(cve).append("](").append(getUrlForCVE(cve)).append("):**");
+        try {
+            description.append("\n**[").append(advisory).append("](").append(getUrlForCVE(advisory)).append("):**");
+        } catch (BugAuditException e) {
+            description.append("\n**[").append(advisory).append("](").append(url).append("):**");
+        }
         if (descriptionTitle != null && !descriptionTitle.isEmpty()) {
             description.append("\n * **Description:** ").append(descriptionTitle);
         }
