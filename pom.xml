@@ -5,7 +5,7 @@
 
     <groupId>me.shib.bugaudit</groupId>
     <artifactId>bugaudit-scanner-bundleraudit</artifactId>
-    <version>0.1</version>
+    <version>0.2</version>
     <name>BugAudit Scanner - Bundler Audit</name>
     <description>A bug audit scanner using bundler audit for Ruby</description>
     <url>https://github.com/${project.owner.id}/${project.artifactId}</url>
@@ -177,7 +177,7 @@
         <dependency>
             <groupId>me.shib.bugaudit</groupId>
             <artifactId>bugaudit-scanner</artifactId>
-            <version>0.1</version>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 
