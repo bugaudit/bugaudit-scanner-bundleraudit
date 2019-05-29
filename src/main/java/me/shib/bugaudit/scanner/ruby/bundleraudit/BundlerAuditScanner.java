@@ -157,7 +157,7 @@ public final class BundlerAuditScanner extends BugAuditScanner {
     }
 
     private void runBundlerAudit() throws BugAuditException, FileNotFoundException {
-        System.out.println("Running RetireJS...");
+        System.out.println("Running BundlerAudit...");
         String bundlerAuditResponse = bundlerAuditExecutor("bundle-audit");
         writeToFile(bundlerAuditResponse, bundlerAuditOutput);
     }
