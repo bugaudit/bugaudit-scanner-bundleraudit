@@ -107,7 +107,8 @@ public final class BundlerAuditScanner extends BugAuditScanner {
 
     private void parseOutputContentToResult(String content) throws BugAuditException {
         String[] lines = content.split("\n");
-        if (!lines[lines.length - 1].equalsIgnoreCase("No vulnerabilities found")) {
+        String lastLine = lines[lines.length - 1];
+        if (lastLine.equalsIgnoreCase("Vulnerabilities found!")) {
             List<String> vulnGemLines = new ArrayList<>();
             for (String line : lines) {
                 if (!line.startsWith("Insecure Source URI found")) {
@@ -125,6 +126,8 @@ public final class BundlerAuditScanner extends BugAuditScanner {
                 }
                 i++;
             }
+        } else if (!lastLine.equalsIgnoreCase("No vulnerabilities found")) {
+            throw new BugAuditException("Something went wrong with Bundler Audit");
         }
     }
 
