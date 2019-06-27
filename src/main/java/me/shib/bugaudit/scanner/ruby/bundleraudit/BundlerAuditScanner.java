@@ -2,7 +2,10 @@ package me.shib.bugaudit.scanner.ruby.bundleraudit;
 
 import me.shib.bugaudit.commons.BugAuditContent;
 import me.shib.bugaudit.commons.BugAuditException;
-import me.shib.bugaudit.scanner.*;
+import me.shib.bugaudit.scanner.Bug;
+import me.shib.bugaudit.scanner.BugAuditScanner;
+import me.shib.bugaudit.scanner.BugAuditScannerConfig;
+import me.shib.bugaudit.scanner.Lang;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -131,11 +134,8 @@ public final class BundlerAuditScanner extends BugAuditScanner {
         }
     }
 
-    private String bundlerAuditExecutor(String command) throws BugAuditException {
-        CommandExecutor commandExecutor = new CommandExecutor();
-        commandExecutor.enableConsoleOutput(true);
-        commandExecutor.runCommand(command);
-        String response = commandExecutor.getConsoleOutput();
+    private String bundlerAuditExecutor(String command) throws BugAuditException, IOException, InterruptedException {
+        String response = runCommand(command);
         if (response.contains("command not found") || response.contains("is currently not installed")) {
             throw new BugAuditException("Install npm before proceeding");
         }
@@ -159,17 +159,17 @@ public final class BundlerAuditScanner extends BugAuditScanner {
         pw.close();
     }
 
-    private void runBundlerAudit() throws BugAuditException, FileNotFoundException {
+    private void runBundlerAudit() throws BugAuditException, IOException, InterruptedException {
         System.out.println("Running BundlerAudit...");
         String bundlerAuditResponse = bundlerAuditExecutor("bundle-audit");
         writeToFile(bundlerAuditResponse, bundlerAuditOutput);
     }
 
-    private void installBundlerAudit() throws BugAuditException {
+    private void installBundlerAudit() throws BugAuditException, IOException, InterruptedException {
         bundlerAuditExecutor("gem install bundle-audit");
     }
 
-    private void updateBundlerAuditDatabase() throws BugAuditException {
+    private void updateBundlerAuditDatabase() throws BugAuditException, IOException, InterruptedException {
         bundlerAuditExecutor("bundle-audit update");
     }
 
