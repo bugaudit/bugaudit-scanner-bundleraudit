@@ -18,7 +18,8 @@ public final class BundlerAuditScanner extends BugAuditScanner {
     private static transient final String tool = "BundlerAudit";
     private static transient final File bundlerAuditOutput = new File("bugaudit-bundleraudit-result.txt");
 
-    public BundlerAuditScanner() {
+    public BundlerAuditScanner() throws IOException {
+        super();
         this.getBugAuditScanResult().addKey("Vulnerable-Dependency");
     }
 
