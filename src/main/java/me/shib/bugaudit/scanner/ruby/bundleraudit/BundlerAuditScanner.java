@@ -79,6 +79,9 @@ public final class BundlerAuditScanner extends BugAuditScanner {
                 " in repo - " + getBugAuditScanResult().getRepo();
         Bug bug = getBugAuditScanResult().newBug(title, priority);
         bug.setDescription(new BugAuditContent(getDescription(gemName, gemVersion, descriptionTitle, url, solution, advisory)));
+        if (gemName.isEmpty() || advisory.isEmpty()) {
+            return;
+        }
         bug.addKey(gemName);
         bug.addKey(advisory);
         getBugAuditScanResult().addBug(bug);
