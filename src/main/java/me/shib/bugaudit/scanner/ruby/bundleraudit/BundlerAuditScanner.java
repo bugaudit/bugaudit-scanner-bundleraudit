@@ -94,7 +94,7 @@ public final class BundlerAuditScanner extends BugAuditScanner {
                 .append("-").append(gemVersion)
                 .append("**) was found to be used in the repository ");
         description.append("**[").append(getBugAuditScanResult().getRepo()).append("](")
-                .append(getBugAuditScanResult().getRepo().getUrl()).append(")**.\n");
+                .append(getBugAuditScanResult().getRepo().getWebUrl()).append(")**.\n");
         try {
             description.append("\n**[").append(advisory).append("](").append(getUrlForCVE(advisory)).append("):**");
         } catch (BugAuditException e) {
