@@ -169,10 +169,6 @@ public final class BundlerAuditScanner extends BugAuditScanner {
         writeToFile(bundlerAuditResponse, bundlerAuditOutput);
     }
 
-    private void installBundlerAudit() throws BugAuditException, IOException, InterruptedException {
-        bundlerAuditExecutor("gem install bundle-audit");
-    }
-
     private void updateBundlerAuditDatabase() throws BugAuditException, IOException, InterruptedException {
         bundlerAuditExecutor("bundle-audit update");
     }
@@ -201,7 +197,6 @@ public final class BundlerAuditScanner extends BugAuditScanner {
     public void scan() throws Exception {
         if (!isParserOnly()) {
             bundlerAuditOutput.delete();
-            installBundlerAudit();
             updateBundlerAuditDatabase();
             runBundlerAudit();
         }
