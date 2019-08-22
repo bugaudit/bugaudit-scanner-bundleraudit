@@ -4,7 +4,6 @@ import me.shib.bugaudit.commons.BugAuditContent;
 import me.shib.bugaudit.commons.BugAuditException;
 import me.shib.bugaudit.scanner.Bug;
 import me.shib.bugaudit.scanner.BugAuditScanner;
-import me.shib.bugaudit.scanner.BugAuditScannerConfig;
 import me.shib.bugaudit.scanner.Lang;
 
 import java.io.*;
@@ -176,11 +175,6 @@ public final class BundlerAuditScanner extends BugAuditScanner {
     private void parseBundlerAuditResult() throws BugAuditException, IOException {
         String resultContent = readFromFile(bundlerAuditOutput);
         parseOutputContentToResult(resultContent);
-    }
-
-    @Override
-    public BugAuditScannerConfig getDefaultScannerConfig() {
-        return new BundlerAuditConfig();
     }
 
     @Override
