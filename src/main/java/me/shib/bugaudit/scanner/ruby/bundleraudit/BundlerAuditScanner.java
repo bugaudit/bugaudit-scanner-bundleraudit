@@ -77,7 +77,7 @@ public final class BundlerAuditScanner extends BugAuditScanner {
         }
         String title = "Vulnerable Gem (" + advisory + ") - " + gemName +
                 " in repo - " + getBugAuditScanResult().getRepo();
-        Bug bug = getBugAuditScanResult().newBug(title, priority);
+        Bug bug = new Bug(title, priority);
         bug.setDescription(new BugAuditContent(getDescription(gemName, gemVersion, descriptionTitle, url, solution, advisory)));
         if (gemName.isEmpty() || advisory.isEmpty()) {
             return;
