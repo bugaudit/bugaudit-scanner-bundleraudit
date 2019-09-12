@@ -6,7 +6,8 @@ import me.shib.bugaudit.scanner.Bug;
 import me.shib.bugaudit.scanner.BugAuditScanner;
 import me.shib.bugaudit.scanner.Lang;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -143,23 +144,6 @@ public final class BundlerAuditScanner extends BugAuditScanner {
             throw new BugAuditException("Install npm before proceeding");
         }
         return response;
-    }
-
-    private String readFromFile(File file) throws IOException {
-        StringBuilder contentBuilder = new StringBuilder();
-        BufferedReader br = new BufferedReader(new FileReader(file));
-        String line;
-        while ((line = br.readLine()) != null) {
-            contentBuilder.append(line).append("\n");
-        }
-        br.close();
-        return contentBuilder.toString();
-    }
-
-    private void writeToFile(String content, File file) throws FileNotFoundException {
-        PrintWriter pw = new PrintWriter(file);
-        pw.append(content);
-        pw.close();
     }
 
     private void runBundlerAudit() throws BugAuditException, IOException, InterruptedException {
