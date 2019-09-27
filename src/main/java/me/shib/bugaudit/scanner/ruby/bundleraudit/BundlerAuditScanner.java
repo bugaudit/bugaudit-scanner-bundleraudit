@@ -14,7 +14,6 @@ import java.util.List;
 public final class BundlerAuditScanner extends BugAuditScanner {
 
     private static transient final String cveBaseURL = "https://nvd.nist.gov/vuln/detail/";
-    private static transient final Lang lang = Lang.Ruby;
     private static transient final String tool = "BundlerAudit";
     private static transient final File bundlerAuditOutput = new File("bugaudit-bundleraudit-result.txt");
 
@@ -162,8 +161,8 @@ public final class BundlerAuditScanner extends BugAuditScanner {
     }
 
     @Override
-    protected Lang getLang() {
-        return lang;
+    protected boolean isLangSupported(Lang lang) {
+        return lang == Lang.Ruby;
     }
 
     @Override
